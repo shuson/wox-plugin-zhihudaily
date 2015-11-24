@@ -4,7 +4,7 @@
   "Name":"ZhihuDaily",
   "Description":"Zhihu Daily 知乎日报",
   "Author":"nevermoi",
-  "Version":"0.0.1",
+  "Version":"0.0.2",
   "Language":"python",
   "Website":"https://github.com/shuson/wox-plugin-zhihudaily",
   "IcoPath": "img\\zhd.png",

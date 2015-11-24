@@ -16,12 +16,15 @@ def full2half(uc):
     """
     return unicodedata.normalize('NFKC', uc)
 
-def matricTranspos(ls, delimter):
-    length = len(ls)
-    parts = length/delimter
-    matrics = [ls[i*delimter:(i+1)*delimter] for i in range(parts)]
-    transposed = [[row[i] for row in  matrics] for i in range(delimter)]
-    return reduce(lambda c, x: c + x, transposed, [])
+def listByDelimeter(ls, delimeter):
+    if len(ls)%delimeter != 0:
+        return ls
+    parts = len(ls)/delimeter
+    result = []
+    for i in xrange(delimeter):
+        for j in xrange(parts):
+            result.append(ls[i + j*delimeter])
+    return result
 
 class Main(Wox):
   
@@ -39,7 +42,7 @@ class Main(Wox):
 	r = self.request(URL)
 	bs = BeautifulSoup(r.content, 'html.parser')
 	posts = bs.find_all('div', 'box')
-        newPosts = matricTranspos(posts, 10)
+        newPosts = listByDelimeter(posts, 10)
 	result = []
 	for p in newPosts:
 

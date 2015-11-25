@@ -9,7 +9,7 @@ import requests
 from wox import Wox,WoxAPI
 from bs4 import BeautifulSoup
 
-URL = 'http://daily.zhihu.com/'
+URL = 'http://daily.zhihu.com'
 
 def full2half(uc):
     """Convert full-width characters to half-width characters.
@@ -50,7 +50,7 @@ class Main(Wox):
                 continue
             
             title = p.find('span', 'title').text
-            link = p.find("a")['href']
+            link = URL + p.find("a")['href']
             
             item = {
                 'Title': full2half(title),

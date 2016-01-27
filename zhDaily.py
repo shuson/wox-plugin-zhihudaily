@@ -66,7 +66,7 @@ class Main(Wox):
 	return result
     
     def open_url(self, url):
-	webbrowser.open(url)
+	webbrowser.open(url) #use default browser
 
 if __name__ == '__main__':
     Main()

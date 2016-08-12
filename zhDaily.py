@@ -29,23 +29,27 @@ def listByDelimeter(ls, delimeter):
 class Main(Wox):
   
     def request(self,url):
-	#get system proxy if exists
+        #break wall
+        headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64)'}
+
+        #get system proxy if exists
         if self.proxy and self.proxy.get("enabled") and self.proxy.get("server"):
-	    proxies = {
-		"http":"http://{}:{}".format(self.proxy.get("server"),self.proxy.get("port")),
-		"https":"http://{}:{}".format(self.proxy.get("server"),self.proxy.get("port"))
-	    }
-	    return requests.get(url,proxies = proxies)
-	return requests.get(url)
+            proxies = {
+                "http":"http://{}:{}".format(self.proxy.get("server"),self.proxy.get("port")),
+                "https":"http://{}:{}".format(self.proxy.get("server"),self.proxy.get("port"))
+            }
+            return requests.get(url,proxies = proxies, headers=headers)
+        
+        return requests.get(url, headers=headers)
 			
     def query(self, param):
-	r = self.request(URL)
-	bs = BeautifulSoup(r.content, 'html.parser')
-	posts = bs.find_all('div', 'box')
+        r = self.request(URL)
+        bs = BeautifulSoup(r.content, 'html.parser')
+        posts = bs.find_all('div', 'box')
         newPosts = listByDelimeter(posts, 10)
-	result = []
-	for p in newPosts:
-
+        result = []
+        
+        for p in newPosts:
             if p.find('a') is None:
                 continue
             
@@ -63,10 +67,10 @@ class Main(Wox):
             }
             result.append(item)
         
-	return result
+        return result
     
     def open_url(self, url):
-	webbrowser.open(url) #use default browser
+        webbrowser.open(url) #use default browser
 
 if __name__ == '__main__':
     Main()
